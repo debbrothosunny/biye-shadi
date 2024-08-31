@@ -1,0 +1,200 @@
+-------------------------------------------User Login Edit System----------------------
+
+
+php artisan make:model Profile -m
+
+php artisan make:controller ProfileController
+
+
+{
+    // Show the profile edit form
+    public function edit()
+    {
+        $user = Auth::user(); // Get the authenticated user
+        
+        return view('profile.edit', compact('user'));
+    }
+
+    // Update the user's profile
+    public function update(Request $request)
+    {
+        $user = Auth::user(); // Get the authenticated user
+
+        // Validate the incoming request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+            // Add validation rules for other fields as needed
+        ]);
+
+        // Update the user's profile information
+        $user->name = $request->name;
+        $user->email = $request->email;
+        // Update other profile fields as needed
+        $user->save();
+
+        // Redirect back to the profile edit form with a success message
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
+    }
+}
+
+
+
+----------------------------------------------
+
+*profile create with registerd users in laravel.
+
+
+<td>
+                                            @if ($postData->status == 0)
+                                               <a href="{!! route('approval', 0) !!}"></a> <p class="btn btn-sm btn-primary mb-0">Active</p>
+                                            @else
+                                                <p class="btn btn-sm btn-success mb-0">Deactive</p>
+                                            @endif
+                                        </td>
+
+
+
+       -----------Important Edu quali  form user_dashboard re create
+
+Route::get('/profile_page', [FrontendController::class, 'profile_page'])->name('profile_page')->middleware(['auth']);
+
+
+ ************
+@if(Auth::check())
+            <li><span>Date Of Birth</span> : <span>{{ $postData->date_of_birth ?? '' }}</span></li>
+            @endif
+
+
+---------------------------------------------------27-02-2024--------------------------------------
+
+Rework
+
+1.cw_image Table->home Page
+2.cw_image Table->about us Page
+
+-----------------
+frontend
+3.message sweet alert
+4.Gender on Message Table.
+5.frontend about message send.done
+6.profile and profile page navbar .done
+7.top icon setup
+8.user dashboard.done
+
+------------------------------------------------05-04-24----------------------------------------
+
+                 
+
+                 ********************On User Modal use..**************************
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+class User extends Authenticatable implements MustVerifyEmail
+
+
+
+
+
+
+
+**************Height**********************************
+<select data-v-0bff750f="" class="form-control req" id="height">
+<option data-v-0bff750f="" value="21">4.8"</option>
+<option data-v-0bff750f="" value="20">4.9"</option>
+<option data-v-0bff750f="" value="19">4.10"</option>
+<option data-v-0bff750f="" value="18">4.11</option>
+<option data-v-0bff750f="" value="7">5</option>
+<option data-v-0bff750f="" value="17">5.1"</option>
+<option data-v-0bff750f="" value="16">5.2"</option>
+<option data-v-0bff750f="" value="15">5.3"</option>
+<option data-v-0bff750f="" value="14">5.4"</option>
+<option data-v-0bff750f="" value="13">5.5"</option>
+<option data-v-0bff750f="" value="12">5.6"</option>
+<option data-v-0bff750f="" value="11">5.7"</option>
+<option data-v-0bff750f="" value="10">5.8"</option>
+<option data-v-0bff750f="" value="9">5.9"</option>
+<option data-v-0bff750f="" value="8">5.10"</option>
+<option data-v-0bff750f="" value="22">5.11"</option>
+<option data-v-0bff750f="" value="6">6</option>
+<option data-v-0bff750f="" value="5">6.1"</option>
+<option data-v-0bff750f="" value="4">6.2""</option>
+<option data-v-0bff750f="" value="2">6.3"</option>
+<option data-v-0bff750f="" value="1">6.4”</option>
+<option data-v-0bff750f="" value="3">6.5”</option></select>
+
+
+*************************Profession*************
+
+<select data-v-0bff750f="" class="form-control req" id="profession">
+<option data-v-0bff750f="" value="5">Still student</option>
+<option data-v-0bff750f="" value="21">Govt. employee</option>
+<option data-v-0bff750f="" value="23">Govt.clg.teacher</option>
+<option data-v-0bff750f="" value="20">Govt.sch.teacher</option>
+<option data-v-0bff750f="" value="9">Private employee</option>
+<option data-v-0bff750f="" value="22">P. college teacher</option>
+<option data-v-0bff750f="" value="11">P. school teacher</option>
+<option data-v-0bff750f="" value="8">Businessman</option>
+<option data-v-0bff750f="" value="19">BCS Cadre</option>
+<option data-v-0bff750f="" value="18">Banker</option>
+<option data-v-0bff750f="" value="17">Engineer</option>
+<option data-v-0bff750f="" value="14">Doctor</option>
+<option data-v-0bff750f="" value="13">Nurse</option>
+<option data-v-0bff750f="" value="12">Dentist</option>
+<option data-v-0bff750f="" value="16">Lawyer</option>
+<option data-v-0bff750f="" value="15">Barrister</option>
+<option data-v-0bff750f="" value="1">Journalist</option>
+<option data-v-0bff750f="" value="10">Law enforcer</option>
+<option data-v-0bff750f="" value="7">Chef</option>
+<option data-v-0bff750f="" value="4">Unemployed</option>
+<option data-v-0bff750f="" value="3">Driver</option>
+<option data-v-0bff750f="" value="2">Maulana</option>
+<option data-v-0bff750f="" value="6">Inform Later</option></select>
+
+****************************************Education*****************************
+
+<select data-v-0bff750f="" class="form-control req" id="education">
+<option data-v-0bff750f="" value="27">Under SSC</option>
+<option data-v-0bff750f="" value="26">SSC</option>
+<option data-v-0bff750f="" value="25">HSC</option>
+<option data-v-0bff750f="" value="7">Dakhil</option>
+<option data-v-0bff750f="" value="6">Alim</option>
+<option data-v-0bff750f="" value="11">Fazil</option>
+<option data-v-0bff750f="" value="10">Kamil</option>
+<option data-v-0bff750f="" value="9">Alem</option>
+<option data-v-0bff750f="" value="8">Alema</option>
+<option data-v-0bff750f="" value="35">Hafiz</option>
+<option data-v-0bff750f="" value="36">Hafiza</option>
+<option data-v-0bff750f="" value="3">Diploma</option>
+<option data-v-0bff750f="" value="29">BA</option>
+<option data-v-0bff750f="" value="28">MA</option>
+<option data-v-0bff750f="" value="24">O-Level</option>
+<option data-v-0bff750f="" value="23">A-Level</option>
+<option data-v-0bff750f="" value="22">Degree-Pass</option>
+<option data-v-0bff750f="" value="21">LLB</option>
+<option data-v-0bff750f="" value="20">LLM</option>
+<option data-v-0bff750f="" value="19">BBA</option>
+<option data-v-0bff750f="" value="18">MBA</option>
+<option data-v-0bff750f="" value="17">BSS</option>
+<option data-v-0bff750f="" value="16">MSS</option>
+<option data-v-0bff750f="" value="15">B.Sc.</option>
+<option data-v-0bff750f="" value="14">M.Sc.</option>
+<option data-v-0bff750f="" value="5">PhD</option>
+<option data-v-0bff750f="" value="13">MBBS</option>
+<option data-v-0bff750f="" value="12">FCPS</option>
+<option data-v-0bff750f="" value="30">D.in Midwifery</option>
+<option data-v-0bff750f="" value="4">D.in Nursing</option>
+<option data-v-0bff750f="" value="34">IELTS-5</option>
+<option data-v-0bff750f="" value="32">IELTS-5.5</option>
+<option data-v-0bff750f="" value="31">IELTS-6</option>
+<option data-v-0bff750f="" value="33">IELTS-7</option>
+</select>
+
+**************************15-04-2024************************
+Footer Contact Us Set Up-URL-https://www.sylhetibiyashadi.com/
+
+********************Modal*************************
+
+https://codepen.io/dui77/pen/eYoVrqw
+
+
+*****************************************************
+
